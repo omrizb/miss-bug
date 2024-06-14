@@ -26,8 +26,11 @@ app.get('/api/bug/save', (req, res) => {
 })
 
 app.get('/api/bug/:bugId', (req, res) => {
-
+    const { bugId } = req.params
+    bugService.get(bugId)
+        .then(bug => res.send(bug))
 })
+
 app.get('/api/bug/:bugId/remove', (req, res) => { })
 
 app.listen(PORT, () => console.log(`Server is up. Listening port ${PORT}.`))
