@@ -31,6 +31,14 @@ app.get('/api/bug/:bugId', (req, res) => {
         .then(bug => res.send(bug))
 })
 
-app.get('/api/bug/:bugId/remove', (req, res) => { })
+app.get('/api/bug/:bugId/remove', (req, res) => {
+    const { bugId } = req.params
+    bugService.remove(bugId)
+        .then(bug => res.send(bug))
+        .catch(err => {
+            loggerService.error(`Couldn't remove bug: ${err}`)
+            res.status(500).send(`Couldn't remove bug: ${err}`)
+        })
+})
 
 app.listen(PORT, () => console.log(`Server is up. Listening port ${PORT}.`))

@@ -23,8 +23,15 @@ function get(bugId) {
 
 function remove(bugId) {
     const idx = bugs.findIndex(bug => bug._id === bugId)
+
+    if (idx === -1) {
+        return Promise.reject(`Bug with id '${bugId}' does not exist.`)
+    }
+
+    const bugToRemove = bugs[idx]
     bugs.splice(idx, 1)
     return _saveBugsToFile()
+        .then(() => bugToRemove)
 }
 
 function save(bugToSave) {
