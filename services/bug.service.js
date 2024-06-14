@@ -29,11 +29,14 @@ function remove(bugId) {
 
 function save(bugToSave) {
     bugToSave.updatedAt = Date.now()
+    bugToSave = _removeUndefinedProps(bugToSave)
 
     if (bugToSave._id) {
         const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
+        bugToSave = { ...bugs[idx], ...bugToSave }
         bugs.splice(idx, 1, bugToSave)
     } else {
+        bugToSave = { ...getEmptyBug(), ...bugToSave }
         bugToSave._id = utilService.makeId()
         bugToSave.createdAt = Date.now()
         bugs.push(bugToSave)
@@ -53,4 +56,13 @@ function getEmptyBug() {
 
 function _saveBugsToFile() {
     return utilService.writeJsonFile(DATA_PATH, bugs)
+}
+
+function _removeUndefinedProps(obj) {
+    return Object.keys(obj).reduce((acc, key) => {
+        if (obj[key] !== undefined) {
+            acc[key] = obj[key]
+        }
+        return acc
+    }, {})
 }
