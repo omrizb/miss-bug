@@ -1,10 +1,15 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
+
 import { loggerService } from './services/logger.service.js'
 import { bugService } from './services/bug.service.js'
 
 const PORT = 3030
 
 const app = express()
+
+app.use(express.static('public'))
+app.use(cookieParser())
 
 app.get('/api/bug', (req, res) => {
     bugService.query()
@@ -34,7 +39,10 @@ app.get('/api/bug/:bugId', (req, res) => {
 app.get('/api/bug/:bugId/remove', (req, res) => {
     const { bugId } = req.params
     bugService.remove(bugId)
-        .then(bug => res.send(bug))
+        .then(bug => {
+            loggerService.info(`Bug ${bugToSave._id} removed successfully`)
+            res.send(bug)
+        })
         .catch(err => {
             loggerService.error(`Couldn't remove bug: ${err}`)
             res.status(500).send(`Couldn't remove bug: ${err}`)
