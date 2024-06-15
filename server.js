@@ -5,6 +5,7 @@ import { loggerService } from './services/logger.service.js'
 import { bugService } from './services/bug.service.js'
 
 const PORT = 3030
+const COOKIE_MAXAGE = 1 * 60 * 1000
 
 const app = express()
 
@@ -25,15 +26,27 @@ app.get('/api/bug/save', (req, res) => {
     const bugToSave = { _id, title, description, severity: +severity }
     bugService.save(bugToSave)
         .then(bugToSave => {
-            loggerService.info(`Bug ${bugToSave._id} added successfully`)
+            loggerService.info(`Bug ${bugToSave._id} saved successfully`)
             res.send(bugToSave)
         })
 })
 
 app.get('/api/bug/:bugId', (req, res) => {
     const { bugId } = req.params
+    const visitedBugs = req.cookies.visitedBugs || []
+
+    if (!visitedBugs.find(cookieBugId => cookieBugId === bugId)) {
+        if (visitedBugs.length >= 3) {
+            return res.status(401).send('Wait for a bit')
+        }
+        visitedBugs.push(bugId)
+    }
+
     bugService.get(bugId)
-        .then(bug => res.send(bug))
+        .then(bug => {
+            res.cookie('visitedBugs', visitedBugs, { maxAge: COOKIE_MAXAGE })
+            return res.send(bug)
+        })
 })
 
 app.get('/api/bug/:bugId/remove', (req, res) => {
