@@ -24,6 +24,7 @@ export function BugDetails() {
     return <div>
         <h3>Bug Details 🐛</h3>
         <h4>{bug.title}</h4>
+        <p>{bug.description}</p>
         <p>Severity: <span>{bug.severity}</span></p>
         <Link to="/bug">Back to List</Link>
     </div>
