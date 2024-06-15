@@ -40,7 +40,7 @@ app.get('/api/bug/:bugId/remove', (req, res) => {
     const { bugId } = req.params
     bugService.remove(bugId)
         .then(bug => {
-            loggerService.info(`Bug ${bugToSave._id} removed successfully`)
+            loggerService.info(`Bug ${bug._id} removed successfully`)
             res.send(bug)
         })
         .catch(err => {
