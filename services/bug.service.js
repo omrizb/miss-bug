@@ -12,8 +12,21 @@ export const bugService = {
 
 const bugs = utilService.readJsonFile(DATA_PATH)
 
-function query() {
-    return Promise.resolve(bugs)
+function query(filterBy = {}) {
+    const filteredBugs = bugs
+
+    if (filterBy.txt) {
+        const regExp = new RegExp(filterBy.txt, 'i')
+        bugs = bugs.filter(bug => (
+            regExp.test(bug.title) ||
+            regExp.test(bug.description)
+        ))
+    }
+    if (filterBy.minSpeed) {
+        bugs = bugs.filter(bug => bug.severity >= filterBy.minSeverity)
+    }
+
+    return Promise.resolve(filteredBugs)
 }
 
 function get(bugId) {
@@ -58,6 +71,7 @@ function getEmptyBug() {
         title: 'New bug',
         description: '',
         severity: 1,
+        labels: []
     }
 }
 

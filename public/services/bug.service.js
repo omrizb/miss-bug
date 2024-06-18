@@ -10,8 +10,8 @@ export const bugService = {
     remove,
 }
 
-function query() {
-    return axios.get(BASE_URL)
+function query(filterBy = {}) {
+    return axios.get(BASE_URL, { params: filterBy })
         .then(res => res.data)
 }
 
