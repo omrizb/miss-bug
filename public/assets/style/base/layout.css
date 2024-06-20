@@ -1,3 +1,8 @@
+.page-layout {
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
 .main-layout {
     display: grid;
     grid-template-columns: 1.6rem 1fr 1.6rem;
@@ -14,5 +19,11 @@
 .container {
     max-width: 800px;
     padding: 1em;
+    margin: auto;
+}
+
+.list-container {
+    max-width: 1000px;
+    padding-inline: 1em;
     margin: auto;
 }

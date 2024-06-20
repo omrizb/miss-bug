@@ -11,7 +11,7 @@ import { AboutUs } from './pages/AboutUs.jsx'
 export function App() {
   return (
     <Router>
-      <div className="main-layout">
+      <div className="main-layout page-layout">
         <AppHeader />
         <main>
           <Routes>

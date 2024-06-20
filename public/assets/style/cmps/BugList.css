@@ -1,12 +1,13 @@
-.car-list {
-    padding: 15px 0 0;
+.bug-list {
     list-style: none;
     display: grid;
+    margin: auto;
+    padding: 15px 0 0;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
 }
 
-.car-list li {
+.bug-list li {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

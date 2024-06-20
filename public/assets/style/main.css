@@ -9,12 +9,12 @@
 @import "base/forms.css";
 
 /* Components */
+@import "cmps/AppFooter.css";
 @import "cmps/AppHeader.css";
-@import "cmps/UserMsg.css";
-/* @import "cmps/ToggleButton.css"; */
-
+@import "cmps/BugDetails.css";
+@import "cmps/BugEdit.css";
 @import "cmps/BugFilter.css";
 @import "cmps/BugList.css";
 @import "cmps/BugPreview.css";
-@import "cmps/BugDetails.css";
-@import "cmps/BugEdit.css";
+@import "cmps/Home.css";
+@import "cmps/UserMsg.css";

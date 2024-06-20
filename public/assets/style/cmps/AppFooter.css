@@ -1,0 +1,8 @@
+.main-footer {
+    margin-block-start: 1em;
+    background-color: var(--clr2bg);
+}
+
+.main-footer p {
+    margin-block: 1em;
+}
