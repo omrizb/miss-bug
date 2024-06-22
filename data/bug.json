@@ -1,30 +1,106 @@
 [
-    {
-        "_id" : "b101",
-        "title" : "Cannot save a new car",
-        "description" : "problem when clicking Save",
-        "severity" : 2,
-        "createdAt" : 1719711737000
-    },
-    {
-        "_id" : "b102",
-        "title" : "Big issue",
-        "description" : "problem when clicking Add",
-        "severity" : 1,
-        "createdAt" : 1713711737000
-    },
-    {
-        "_id" : "b103",
-        "title" : "Nothing works",
-        "description" : "I'm giving up",
-        "severity" : 4,
-        "createdAt" : 1718711737000
-    },
-    {
-        "_id" : "b104",
-        "title" : "Crash!!!",
-        "description" : "UI is doomed",
-        "severity" : 3,
-        "createdAt" : 1715715737000
-    }
+  {
+    "title": "Crash on profile update",
+    "description": "Application crashes when updating user profile",
+    "severity": 5,
+    "labels": [
+      "critical"
+    ],
+    "_id": "J1k2L3",
+    "updatedAt": 1719011627762
+  },
+  {
+    "title": "Error on password reset",
+    "description": "Users unable to reset their password",
+    "severity": 5,
+    "labels": [
+      "critical",
+      "backend"
+    ],
+    "_id": "Y7z8A1",
+    "updatedAt": 1719011127762
+  },
+  {
+    "title": "Feature request: Export data",
+    "description": "Users request the ability to export their data",
+    "severity": 1,
+    "labels": [
+      "enhancement",
+      "UI"
+    ],
+    "_id": "P7q8R9",
+    "updatedAt": 1719011427762
+  },
+  {
+    "title": "Incorrect data display",
+    "description": "Wrong data displayed in user reports",
+    "severity": 4,
+    "labels": [
+      "bug"
+    ],
+    "_id": "V4w5X6",
+    "updatedAt": 1719011227762
+  },
+  {
+    "title": "Login page error",
+    "description": "Users unable to login with correct credentials",
+    "severity": 4,
+    "labels": [
+      "critical",
+      "backend"
+    ],
+    "_id": "A1b2C3",
+    "updatedAt": 1719011927762
+  },
+  {
+    "title": "Missing notifications",
+    "description": "Users do not receive notifications for new messages",
+    "severity": 3,
+    "labels": [
+      "backend"
+    ],
+    "_id": "M4n5O6",
+    "updatedAt": 1719011527762
+  },
+  {
+    "title": "Page not found error",
+    "description": "404 error when navigating to certain pages",
+    "severity": 2,
+    "labels": [
+      "critical",
+      "need-CR"
+    ],
+    "_id": "S1t2U3",
+    "updatedAt": 1719011327762
+  },
+  {
+    "title": "Search feature slow",
+    "description": "Search results take too long to load",
+    "severity": 3,
+    "labels": [
+      "performance"
+    ],
+    "_id": "D4e5F6",
+    "updatedAt": 1719011827762
+  },
+  {
+    "title": "Slow image loading",
+    "description": "Images load slowly on the homepage",
+    "severity": 2,
+    "labels": [
+      "performance",
+      "UI"
+    ],
+    "_id": "B2c3D4",
+    "updatedAt": 1719011027762
+  },
+  {
+    "title": "Nothing works!",
+    "description": "",
+    "severity": 4,
+    "labels": [],
+    "updatedAt": 1719083131794,
+    "_id": "sCTr5I",
+    "createdAt": 1719083131794
+  }
 ]
