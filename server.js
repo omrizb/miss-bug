@@ -14,10 +14,10 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.get('/api/bug', (req, res) => {
-    const filterBy = (res.query)
+    const filterBy = (req.query)
         ? {
-            txt: res.query.txt || '',
-            minSeverity: +res.query.minSeverity || 0
+            txt: req.query.txt || '',
+            minSeverity: +req.query.minSeverity || 0
         }
         : {}
 
@@ -26,6 +26,15 @@ app.get('/api/bug', (req, res) => {
         .catch(err => {
             loggerService.error(`Couldn't get bugs: ${err}`)
             res.status(500).send(`Couldn't get bugs: ${err}`)
+        })
+})
+
+app.get('/api/bug/default-filter', (req, res) => {
+    bugService.getDefaultFilter()
+        .then(filter => res.send(filter))
+        .catch(err => {
+            loggerService.error(`Couldn't get filter: ${err}`)
+            res.status(500).send(`Couldn't get filter: ${err}`)
         })
 })
 

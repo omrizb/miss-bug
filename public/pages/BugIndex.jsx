@@ -1,18 +1,34 @@
+const { useState, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
+
+import { utilService } from '../services/util.service.js'
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+
+import { BugFilter } from '../cmps/BugFilter.jsx'
 import { BugList } from '../cmps/BugList.jsx'
 
-const { useState, useEffect } = React
-
 export function BugIndex() {
-    const [bugs, setBugs] = useState([])
+
+    const [bugs, setBugs] = useState()
+    const [filterBy, setFilterBy] = useState()
+
+    useEffect(() => {
+        loadFilter()
+    }, [])
 
     useEffect(() => {
         loadBugs()
-    }, [])
+    }, [filterBy])
+
+    function loadFilter() {
+        bugService.getFilter()
+            .then(setFilterBy)
+    }
 
     function loadBugs() {
-        bugService.query().then(setBugs)
+        bugService.query(filterBy)
+            .then(setBugs)
     }
 
     function onRemoveBug(bugId) {
@@ -66,12 +82,17 @@ export function BugIndex() {
             })
     }
 
+    function onSetFilterBy(filterBy) {
+        setFilterBy(filterBy)
+    }
+
     return (
         <main>
             <h3>Bugs App</h3>
             <main>
+                {filterBy && <BugFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />}
                 <button onClick={onAddBug}>Add Bug ⛐</button>
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+                {bugs && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />}
             </main>
         </main>
     )

@@ -5,6 +5,7 @@ export const bugService = {
     getById,
     save,
     remove,
+    getFilter
 }
 
 function query(filterBy = {}) {
@@ -16,10 +17,12 @@ function getById(bugId) {
     return axios.get(`${BASE_URL}/${bugId}`)
         .then(res => res.data)
 }
+
 function remove(bugId) {
     return axios.delete(`${BASE_URL}/${bugId}`)
         .then(res => res.data)
 }
+
 function save(bug) {
     if (bug._id) {
         return axios.put(`${BASE_URL}/${bug._id}`, bug)
@@ -28,4 +31,9 @@ function save(bug) {
         return axios.post(BASE_URL, bug)
             .then(res => res.data)
     }
+}
+
+function getFilter() {
+    return axios.get(`${BASE_URL}/default-filter`)
+        .then(res => res.data)
 }

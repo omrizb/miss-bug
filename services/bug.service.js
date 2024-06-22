@@ -7,23 +7,24 @@ export const bugService = {
     get,
     remove,
     save,
-    getEmptyBug
+    getEmptyBug,
+    getDefaultFilter
 }
 
 const bugs = utilService.readJsonFile(DATA_PATH)
 
 function query(filterBy = {}) {
-    const filteredBugs = bugs
+    let filteredBugs = bugs
 
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
-        bugs = bugs.filter(bug => (
+        filteredBugs = filteredBugs.filter(bug => (
             regExp.test(bug.title) ||
             regExp.test(bug.description)
         ))
     }
-    if (filterBy.minSpeed) {
-        bugs = bugs.filter(bug => bug.severity >= filterBy.minSeverity)
+    if (filterBy.minSeverity) {
+        filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
     }
 
     return Promise.resolve(filteredBugs)
@@ -53,10 +54,8 @@ function save(bugToSave) {
 
     if (bugToSave._id) {
         const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
-        bugToSave = { ...bugs[idx], ...bugToSave }
         bugs.splice(idx, 1, bugToSave)
     } else {
-        bugToSave = { ...getEmptyBug(), ...bugToSave }
         bugToSave._id = utilService.makeId()
         bugToSave.createdAt = Date.now()
         bugs.push(bugToSave)
@@ -67,12 +66,22 @@ function save(bugToSave) {
 }
 
 function getEmptyBug() {
-    return {
+    return Promise.resolve({
         title: 'New bug',
         description: '',
         severity: 1,
         labels: []
-    }
+    })
+}
+
+function getDefaultFilter() {
+    return Promise.resolve({
+        txt: '',
+        minSeverity: '',
+        labels: [],
+        sortBy: '',
+        sortDir: 1
+    })
 }
 
 function _saveBugsToFile() {
