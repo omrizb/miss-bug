@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { utilService } from '../services/util.service.js'
@@ -12,6 +12,8 @@ export function BugIndex() {
 
     const [bugs, setBugs] = useState()
     const [filterBy, setFilterBy] = useState()
+
+    const debouncedOnSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
 
     useEffect(() => {
         loadFilter()
@@ -90,7 +92,7 @@ export function BugIndex() {
         <main>
             <h3>Bugs App</h3>
             <main>
-                {filterBy && <BugFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />}
+                {filterBy && <BugFilter filterBy={filterBy} onSetFilterBy={debouncedOnSetFilterBy.current} />}
                 <button onClick={onAddBug}>Add Bug ⛐</button>
                 {bugs && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />}
             </main>
