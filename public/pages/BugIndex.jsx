@@ -5,31 +5,34 @@ import { utilService } from '../services/util.service.js'
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
-import { BugFilter } from '../cmps/BugFilter.jsx'
+import { BugFilterAndSort } from '../cmps/BugFilterAndSort.jsx'
 import { BugList } from '../cmps/BugList.jsx'
 
 export function BugIndex() {
 
+    const [searchParams] = useSearchParams()
     const [bugs, setBugs] = useState()
-    const [filterBy, setFilterBy] = useState()
+    const [queryParams, setQueryParams] = useState()
 
-    const debouncedOnSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
+    const debouncedQueryParams = useRef(utilService.debounce(onSetQueryParams, 500))
 
     useEffect(() => {
-        loadFilter()
+        loadQueryParams()
     }, [])
 
     useEffect(() => {
         loadBugs()
-    }, [filterBy])
+    }, [queryParams])
 
-    function loadFilter() {
-        bugService.getFilter()
-            .then(setFilterBy)
+    function loadQueryParams() {
+        bugService.getQueryParams(searchParams)
+            .then(setQueryParams)
     }
 
     function loadBugs() {
-        bugService.query(filterBy)
+        if (!queryParams) return
+
+        bugService.query(queryParams)
             .then(setBugs)
     }
 
@@ -84,15 +87,18 @@ export function BugIndex() {
             })
     }
 
-    function onSetFilterBy(filterBy) {
-        setFilterBy(filterBy)
+    function onSetQueryParams(queryParams) {
+        setQueryParams(queryParams)
     }
 
     return (
         <main>
             <h3>Bugs App</h3>
             <main>
-                {filterBy && <BugFilter filterBy={filterBy} onSetFilterBy={debouncedOnSetFilterBy.current} />}
+                {queryParams && <BugFilterAndSort
+                    queryParams={queryParams}
+                    onSetQueryParams={debouncedQueryParams.current}
+                />}
                 <button onClick={onAddBug}>Add Bug ⛐</button>
                 {bugs && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />}
             </main>

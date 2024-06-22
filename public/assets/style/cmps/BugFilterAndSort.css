@@ -1,0 +1,23 @@
+.bug-filter-and-sort * {
+    margin: 0;
+    padding: 0;
+}
+
+.bug-filter-and-sort {
+    display: grid;
+    gap: 10px;
+    padding: 1em;
+    background-color: var(--clr2bg);
+}
+
+.bug-filter-and-sort .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0.5em;
+}
+
+.bug-filter-and-sort form {
+    display: grid;
+    grid-template-columns: 100px 200px;
+}

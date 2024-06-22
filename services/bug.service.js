@@ -8,13 +8,14 @@ export const bugService = {
     remove,
     save,
     getEmptyBug,
-    getDefaultFilter
+    getDefaultQueryParams
 }
 
 const bugs = utilService.readJsonFile(DATA_PATH)
 
-function query(filterBy = {}) {
+function query(queryParams = {}) {
     let filteredBugs = bugs
+    const { filterBy, sortBy, sortDir, pageIdx } = queryParams
 
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
@@ -25,6 +26,14 @@ function query(filterBy = {}) {
     }
     if (filterBy.minSeverity) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
+    }
+
+    if (sortBy === 'title') {
+        filteredBugs = filteredBugs.sort((bug1, bug2) => bug1.title.localeCompare(bug2.title) * sortDir)
+    } else if (sortBy === 'severity') {
+        filteredBugs = filteredBugs.sort((bug1, bug2) => (bug1.severity - bug2.severity) * sortDir)
+    } else if (sortBy === 'createdAt') {
+        filteredBugs = filteredBugs.sort((bug1, bug2) => (bug1.createdAt - bug2.createdAt) * sortDir)
     }
 
     return Promise.resolve(filteredBugs)
@@ -74,13 +83,16 @@ function getEmptyBug() {
     })
 }
 
-function getDefaultFilter() {
+function getDefaultQueryParams() {
     return Promise.resolve({
-        txt: '',
-        minSeverity: '',
-        labels: [],
+        filterBy: {
+            txt: '',
+            minSeverity: '',
+            labels: [],
+        },
         sortBy: '',
-        sortDir: 1
+        sortDir: '',
+        pageIdx: 0
     })
 }
 

@@ -1,6 +1,8 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import qs from 'qs'
 
+import { utilService } from './services/util.service.js'
 import { loggerService } from './services/logger.service.js'
 import { bugService } from './services/bug.service.js'
 
@@ -14,27 +16,28 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.get('/api/bug', (req, res) => {
-    const filterBy = (req.query)
-        ? {
-            txt: req.query.txt || '',
-            minSeverity: +req.query.minSeverity || 0
-        }
-        : {}
-
-    bugService.query(filterBy)
-        .then(bugs => res.send(bugs))
-        .catch(err => {
-            loggerService.error(`Couldn't get bugs: ${err}`)
-            res.status(500).send(`Couldn't get bugs: ${err}`)
+    bugService.getDefaultQueryParams()
+        .then(defaultOps => {
+            const queryOps = (req.query) ? qs.parse(req.query[0]) : {}
+            const queryParams = utilService.deepMergeObjectsSourceKeysOnly(defaultOps, queryOps)
+            return queryParams
+        })
+        .then(queryParams => {
+            bugService.query(queryParams)
+                .then(bugs => res.send(bugs))
+                .catch(err => {
+                    loggerService.error(`Couldn't get bugs: ${err}`)
+                    res.status(500).send(`Couldn't get bugs: ${err}`)
+                })
         })
 })
 
-app.get('/api/bug/default-filter', (req, res) => {
-    bugService.getDefaultFilter()
-        .then(filter => res.send(filter))
+app.get('/api/bug/default-query-params', (req, res) => {
+    bugService.getDefaultQueryParams()
+        .then(queryParams => res.send(queryParams))
         .catch(err => {
-            loggerService.error(`Couldn't get filter: ${err}`)
-            res.status(500).send(`Couldn't get filter: ${err}`)
+            loggerService.error(`Couldn't get data display ops: ${err}`)
+            res.status(500).send(`Couldn't get data display ops: ${err}`)
         })
 })
 

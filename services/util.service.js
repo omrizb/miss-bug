@@ -8,7 +8,8 @@ export const utilService = {
     writeJsonFile,
     download,
     httpGet,
-    makeId
+    makeId,
+    deepMergeObjectsSourceKeysOnly
 }
 
 
@@ -74,4 +75,34 @@ function makeId(length = 6) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+function deepMergeObjectsSourceKeysOnly(source, target) {
+    const merged = { ...source }
+
+    for (const key in source) {
+        if (target.hasOwnProperty(key)) {
+            if (typeof source[key] === 'object' && source[key] !== null && !Array.isArray(source[key])) {
+                merged[key] = deepMergeObjectsSourceKeysOnly(source[key], target[key])
+            } else {
+                merged[key] = convertType(source[key], target[key])
+            }
+        }
+    }
+
+    return merged
+}
+
+function convertType(sourceValue, targetValue) {
+    const sourceType = typeof sourceValue
+    switch (sourceType) {
+        case 'number':
+            return Number(targetValue)
+        case 'boolean':
+            return Boolean(targetValue)
+        case 'string':
+            return String(targetValue)
+        default:
+            return targetValue
+    }
 }

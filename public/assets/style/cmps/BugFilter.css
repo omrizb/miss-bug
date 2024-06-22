@@ -1,9 +1,0 @@
-.bug-filter {
-    padding: 0.5em 1em;
-    background-color: var(--clr2bg);
-}
-
-.bug-filter form {
-    display: grid;
-    grid-template-columns: 100px 200px;
-}
