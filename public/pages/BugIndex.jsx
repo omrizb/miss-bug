@@ -13,11 +13,13 @@ export function BugIndex() {
     const [searchParams] = useSearchParams()
     const [bugs, setBugs] = useState()
     const [queryParams, setQueryParams] = useState()
+    const allLabels = useRef()
 
     const debouncedQueryParams = useRef(utilService.debounce(onSetQueryParams, 500))
 
     useEffect(() => {
         loadQueryParams()
+        loadLabels()
     }, [])
 
     useEffect(() => {
@@ -27,6 +29,11 @@ export function BugIndex() {
     function loadQueryParams() {
         bugService.getQueryParams(searchParams)
             .then(setQueryParams)
+    }
+
+    function loadLabels() {
+        bugService.getLabels()
+            .then(labels => allLabels.current = labels)
     }
 
     function loadBugs() {
@@ -95,9 +102,10 @@ export function BugIndex() {
         <main>
             <h3>Bugs App</h3>
             <main>
-                {queryParams && <BugFilterAndSort
+                {queryParams && allLabels.current && <BugFilterAndSort
                     queryParams={queryParams}
                     onSetQueryParams={debouncedQueryParams.current}
+                    allLabels={allLabels.current}
                 />}
                 <button onClick={onAddBug}>Add Bug ⛐</button>
                 {bugs && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />}

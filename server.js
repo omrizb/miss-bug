@@ -17,9 +17,9 @@ app.use(express.json())
 
 app.get('/api/bug', (req, res) => {
     bugService.getDefaultQueryParams()
-        .then(defaultOps => {
-            const queryOps = (req.query) ? qs.parse(req.query[0]) : {}
-            const queryParams = utilService.deepMergeObjectsSourceKeysOnly(defaultOps, queryOps)
+        .then(defaultQueryParams => {
+            const reqQueryParams = (req.query) ? qs.parse(req.query[0]) : {}
+            const queryParams = utilService.deepMergeObjectsSourceKeysOnly(defaultQueryParams, reqQueryParams)
             return queryParams
         })
         .then(queryParams => {
@@ -36,8 +36,17 @@ app.get('/api/bug/default-query-params', (req, res) => {
     bugService.getDefaultQueryParams()
         .then(queryParams => res.send(queryParams))
         .catch(err => {
-            loggerService.error(`Couldn't get data display ops: ${err}`)
-            res.status(500).send(`Couldn't get data display ops: ${err}`)
+            loggerService.error(`Couldn't get default query params: ${err}`)
+            res.status(500).send(`Couldn't get default query params: ${err}`)
+        })
+})
+
+app.get('/api/bug/labels', (req, res) => {
+    bugService.getLabels()
+        .then(labels => res.send(labels))
+        .catch(err => {
+            loggerService.error(`Couldn't get labels: ${err}`)
+            res.status(500).send(`Couldn't get labels: ${err}`)
         })
 })
 

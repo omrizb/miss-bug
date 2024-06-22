@@ -5,7 +5,8 @@ export const bugService = {
     getById,
     save,
     remove,
-    getQueryParams
+    getQueryParams,
+    getLabels
 }
 
 function query(queryParams) {
@@ -37,14 +38,20 @@ function save(bug) {
 function getQueryParams(searchParams) {
     return axios.get(`${BASE_URL}/default-query-params`)
         .then(res => res.data)
-        .then(displayOps => {
+        .then(queryParams => {
 
-            if (searchParams.get('txt')) displayOps.filterBy.txt = searchParams.get('txt')
-            if (searchParams.get('minSeverity')) displayOps.filterBy.minSeverity = +searchParams.get('minSeverity')
-            if (searchParams.get('sortBy')) displayOps.sortBy = searchParams.get('sortBy')
-            if (searchParams.get('sortDir')) displayOps.sortDir = +searchParams.get('sortDir')
-            if (searchParams.get('pageIdx')) displayOps.pageIdx = searchParams.get('pageIdx')
+            if (searchParams.get('txt')) queryParams.filterBy.txt = searchParams.get('txt')
+            if (searchParams.get('minSeverity')) queryParams.filterBy.minSeverity = +searchParams.get('minSeverity')
+            if (searchParams.get('labels')) queryParams.filterBy.labels = searchParams.get('labels').split(',')
+            if (searchParams.get('sortBy')) queryParams.sortBy = searchParams.get('sortBy')
+            if (searchParams.get('sortDir')) queryParams.sortDir = +searchParams.get('sortDir')
+            if (searchParams.get('pageIdx')) queryParams.pageIdx = searchParams.get('pageIdx')
 
-            return displayOps
+            return queryParams
         })
+}
+
+function getLabels() {
+    return axios.get(`${BASE_URL}/labels`)
+        .then(res => res.data)
 }

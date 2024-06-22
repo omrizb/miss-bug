@@ -27,6 +27,11 @@ a {
     cursor: pointer;
 }
 
+ul,
+ol {
+    list-style-type: none;
+}
+
 /* Dont stretch my Media */
 img,
 embed,

@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function BugFilterAndSort({ queryParams, onSetQueryParams }) {
+export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels }) {
 
     const [queryParamsToEdit, setQueryParamsToEdit] = useState(queryParams)
 
@@ -47,6 +47,22 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams }) {
         setQueryParamsToEdit(prevQueryParams => ({
             ...prevQueryParams,
             sortDir: dir,
+            pageIdx: 0
+        }))
+    }
+
+    function handleLabelChange({ target }) {
+        const label = target.name
+        const isChecked = target.checked
+
+        setQueryParamsToEdit(prevQueryParams => ({
+            ...prevQueryParams,
+            filterBy: {
+                ...prevQueryParams.filterBy,
+                labels: isChecked
+                    ? [...prevQueryParams.filterBy.labels, label]
+                    : prevQueryParams.filterBy.labels.filter(prevLabel => prevLabel !== label)
+            },
             pageIdx: 0
         }))
     }
@@ -104,6 +120,23 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams }) {
                     />
                     ↓
                 </label>
+            </div>
+            <div className="filter-section">
+                <ul>
+                    {allLabels.map(label => (
+                        <li key={label}>
+                            <label>
+                                <input
+                                    name={label}
+                                    onChange={handleLabelChange}
+                                    type="checkbox"
+                                    checked={filterBy.labels.includes(label)}
+                                />
+                                {label}
+                            </label>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     )

@@ -8,12 +8,13 @@ export const bugService = {
     remove,
     save,
     getEmptyBug,
-    getDefaultQueryParams
+    getDefaultQueryParams,
+    getLabels
 }
 
 const bugs = utilService.readJsonFile(DATA_PATH)
 
-function query(queryParams = {}) {
+function query(queryParams = { filterBy: { labels: [] } }) {
     let filteredBugs = bugs
     const { filterBy, sortBy, sortDir, pageIdx } = queryParams
 
@@ -26,6 +27,9 @@ function query(queryParams = {}) {
     }
     if (filterBy.minSeverity) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
+    }
+    if (filterBy.labels.length > 0) {
+        filteredBugs = filteredBugs.filter(bug => filterBy.labels.every(label => bug.labels.includes(label)))
     }
 
     if (sortBy === 'title') {
@@ -88,11 +92,20 @@ function getDefaultQueryParams() {
         filterBy: {
             txt: '',
             minSeverity: '',
-            labels: [],
+            labels: []
         },
         sortBy: '',
         sortDir: '',
         pageIdx: 0
+    })
+}
+
+function getLabels() {
+    return query().then(bugs => {
+        const bugLabels = bugs.reduce((acc, bug) => {
+            return acc = [...acc, ...bug.labels]
+        }, [])
+        return [...new Set(bugLabels)]
     })
 }
 

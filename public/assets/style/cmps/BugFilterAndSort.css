@@ -17,6 +17,16 @@
     padding: 0.5em;
 }
 
+.bug-filter-and-sort ul {
+    display: flex;
+    gap: 15px;
+}
+
+.bug-filter-and-sort ul label {
+    display: flex;
+    gap: 5px;
+}
+
 .bug-filter-and-sort form {
     display: grid;
     grid-template-columns: 100px 200px;
