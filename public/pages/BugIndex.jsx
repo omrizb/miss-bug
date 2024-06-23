@@ -13,6 +13,7 @@ export function BugIndex() {
     const [searchParams] = useSearchParams()
     const [bugs, setBugs] = useState()
     const [queryParams, setQueryParams] = useState()
+    const [pageCount, setPageCount] = useState()
     const allLabels = useRef()
 
     const debouncedQueryParams = useRef(utilService.debounce(onSetQueryParams, 500))
@@ -20,6 +21,7 @@ export function BugIndex() {
     useEffect(() => {
         loadQueryParams()
         loadLabels()
+        loadPageCount()
     }, [])
 
     useEffect(() => {
@@ -29,11 +31,28 @@ export function BugIndex() {
     function loadQueryParams() {
         bugService.getQueryParams(searchParams)
             .then(setQueryParams)
+            .catch(err => {
+                console.error('Error:', err)
+                showErrorMsg('Cannot load query params')
+            })
     }
 
     function loadLabels() {
         bugService.getLabels()
             .then(labels => allLabels.current = labels)
+            .catch(err => {
+                console.error('Error:', err)
+                showErrorMsg('Cannot load labels')
+            })
+    }
+
+    function loadPageCount() {
+        bugService.getPageCount()
+            .then(count => setPageCount(count))
+            .catch(err => {
+                console.error('Error:', err)
+                showErrorMsg('Cannot load page count')
+            })
     }
 
     function loadBugs() {
@@ -41,6 +60,10 @@ export function BugIndex() {
 
         bugService.query(queryParams)
             .then(setBugs)
+            .catch(err => {
+                console.error('Error:', err)
+                showErrorMsg('Cannot load bugs')
+            })
     }
 
     function onRemoveBug(bugId) {
@@ -106,6 +129,7 @@ export function BugIndex() {
                     queryParams={queryParams}
                     onSetQueryParams={debouncedQueryParams.current}
                     allLabels={allLabels.current}
+                    pageCount={pageCount}
                 />}
                 <button onClick={onAddBug}>Add Bug ⛐</button>
                 {bugs && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />}

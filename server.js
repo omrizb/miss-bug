@@ -50,6 +50,15 @@ app.get('/api/bug/labels', (req, res) => {
         })
 })
 
+app.get('/api/bug/page-count', (req, res) => {
+    bugService.getPageCount()
+        .then(count => res.send(count + ''))
+        .catch(err => {
+            loggerService.error(`Couldn't get page count: ${err}`)
+            res.status(500).send(`Couldn't get page count: ${err}`)
+        })
+})
+
 app.get('/api/bug/:id', (req, res) => {
     const { id } = req.params
     const visitedBugs = req.cookies.visitedBugs || []

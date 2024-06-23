@@ -31,3 +31,12 @@
     display: grid;
     grid-template-columns: 100px 200px;
 }
+
+.bug-filter-and-sort button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    min-height: 20px;
+    border: 1px solid gray;
+}

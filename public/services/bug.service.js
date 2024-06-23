@@ -6,7 +6,8 @@ export const bugService = {
     save,
     remove,
     getQueryParams,
-    getLabels
+    getLabels,
+    getPageCount
 }
 
 function query(queryParams) {
@@ -54,4 +55,9 @@ function getQueryParams(searchParams) {
 function getLabels() {
     return axios.get(`${BASE_URL}/labels`)
         .then(res => res.data)
+}
+
+function getPageCount() {
+    return axios.get(`${BASE_URL}/page-count`)
+        .then(res => +res.data)
 }

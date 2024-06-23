@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels }) {
+export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels, pageCount }) {
 
     const [queryParamsToEdit, setQueryParamsToEdit] = useState(queryParams)
 
@@ -65,6 +65,13 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels }) {
             },
             pageIdx: 0
         }))
+    }
+
+    function onGetPage(diff) {
+        let pageIdx = queryParamsToEdit.pageIdx + diff
+        if (pageIdx < 0) return
+        if (pageIdx > pageCount - 1) return
+        setQueryParamsToEdit(prevQueryParams => ({ ...prevQueryParams, pageIdx }))
     }
 
     const { filterBy, sortBy, sortDir, pageIdx } = queryParamsToEdit
@@ -138,7 +145,12 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels }) {
                     ))}
                 </ul>
             </div>
-        </div>
+            <div className="filter-section">
+                <button onClick={() => onGetPage(-1)}>-</button>
+                <span>{pageIdx + 1} / {pageCount}</span>
+                <button onClick={() => onGetPage(1)}> +</button>
+            </div>
+        </div >
     )
 
 }

@@ -9,12 +9,14 @@ export const bugService = {
     save,
     getEmptyBug,
     getDefaultQueryParams,
-    getLabels
+    getLabels,
+    getPageCount
 }
 
+const PAGE_SIZE = 4
 const bugs = utilService.readJsonFile(DATA_PATH)
 
-function query(queryParams = { filterBy: { labels: [] } }) {
+function query(queryParams = _getDefaultQueryParams()) {
     let filteredBugs = bugs
     const { filterBy, sortBy, sortDir, pageIdx } = queryParams
 
@@ -39,6 +41,9 @@ function query(queryParams = { filterBy: { labels: [] } }) {
     } else if (sortBy === 'createdAt') {
         filteredBugs = filteredBugs.sort((bug1, bug2) => (bug1.createdAt - bug2.createdAt) * sortDir)
     }
+
+    const startIdx = pageIdx * PAGE_SIZE
+    filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
 
     return Promise.resolve(filteredBugs)
 }
@@ -88,16 +93,7 @@ function getEmptyBug() {
 }
 
 function getDefaultQueryParams() {
-    return Promise.resolve({
-        filterBy: {
-            txt: '',
-            minSeverity: '',
-            labels: []
-        },
-        sortBy: '',
-        sortDir: '',
-        pageIdx: 0
-    })
+    return Promise.resolve(_getDefaultQueryParams())
 }
 
 function getLabels() {
@@ -107,6 +103,23 @@ function getLabels() {
         }, [])
         return [...new Set(bugLabels)]
     })
+}
+
+function getPageCount() {
+    return Promise.resolve(Math.ceil(bugs.length / PAGE_SIZE))
+}
+
+function _getDefaultQueryParams() {
+    return {
+        filterBy: {
+            txt: '',
+            minSeverity: '',
+            labels: []
+        },
+        sortBy: '',
+        sortDir: '',
+        pageIdx: 0
+    }
 }
 
 function _saveBugsToFile() {
