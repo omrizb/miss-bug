@@ -8,6 +8,19 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels, pag
         onSetQueryParams(queryParamsToEdit)
     }, [queryParamsToEdit])
 
+    function clearFilters() {
+        setQueryParamsToEdit({
+            filterBy: {
+                txt: '',
+                minSeverity: '',
+                labels: []
+            },
+            sortBy: '',
+            sortDir: '',
+            pageIdx: 0
+        })
+    }
+
     function handleFilterChange({ target }) {
         const field = target.name
         let value = target.value
@@ -79,6 +92,7 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels, pag
     return (
         <div className="bug-filter-and-sort">
             <h2>Filter and sort bugs</h2>
+            <button className="btn" onClick={() => clearFilters()}>Clear</button>
             <div className="filter-section">
                 <input
                     value={filterBy.txt}
@@ -146,9 +160,9 @@ export function BugFilterAndSort({ queryParams, onSetQueryParams, allLabels, pag
                 </ul>
             </div>
             <div className="filter-section">
-                <button onClick={() => onGetPage(-1)}>-</button>
+                <button className="btn-square" onClick={() => onGetPage(-1)}>-</button>
                 <span>{pageIdx + 1} / {pageCount}</span>
-                <button onClick={() => onGetPage(1)}> +</button>
+                <button className="btn-square" onClick={() => onGetPage(1)}> +</button>
             </div>
         </div >
     )

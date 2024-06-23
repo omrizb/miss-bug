@@ -97,12 +97,10 @@ function getDefaultQueryParams() {
 }
 
 function getLabels() {
-    return query().then(bugs => {
-        const bugLabels = bugs.reduce((acc, bug) => {
-            return acc = [...acc, ...bug.labels]
-        }, [])
-        return [...new Set(bugLabels)]
-    })
+    const bugLabels = bugs.reduce((acc, bug) => {
+        return acc = [...acc, ...bug.labels]
+    }, [])
+    return Promise.resolve([...new Set(bugLabels)])
 }
 
 function getPageCount() {

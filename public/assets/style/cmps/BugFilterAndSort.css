@@ -32,7 +32,16 @@
     grid-template-columns: 100px 200px;
 }
 
-.bug-filter-and-sort button {
+.bug-filter-and-sort .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding: 0.5em 1em;
+    border: 1px solid gray;
+}
+
+.bug-filter-and-sort .btn-square {
     display: flex;
     justify-content: center;
     align-items: center;
