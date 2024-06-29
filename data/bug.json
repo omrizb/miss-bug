@@ -12,13 +12,13 @@
   {
     "title": "Error on password reset",
     "description": "Users unable to reset their password",
-    "severity": 5,
+    "severity": 2,
     "labels": [
       "critical",
       "backend"
     ],
     "_id": "Y7z8A1",
-    "updatedAt": 1719011127762
+    "updatedAt": 1719126174470
   },
   {
     "title": "Feature request: Export data",
@@ -63,6 +63,15 @@
     "updatedAt": 1719011527762
   },
   {
+    "title": "Nothing works!",
+    "description": "",
+    "severity": 4,
+    "labels": [],
+    "updatedAt": 1719083131794,
+    "_id": "sCTr5I",
+    "createdAt": 1719083131794
+  },
+  {
     "title": "Page not found error",
     "description": "404 error when navigating to certain pages",
     "severity": 2,
@@ -84,23 +93,13 @@
     "updatedAt": 1719011827762
   },
   {
-    "title": "Slow image loading",
-    "description": "Images load slowly on the homepage",
-    "severity": 2,
+    "title": "Test123",
+    "description": "test!!",
+    "severity": 1,
     "labels": [
-      "performance",
-      "UI"
+      "critical"
     ],
-    "_id": "B2c3D4",
-    "updatedAt": 1719011027762
-  },
-  {
-    "title": "Nothing works!",
-    "description": "",
-    "severity": 4,
-    "labels": [],
-    "updatedAt": 1719083131794,
-    "_id": "sCTr5I",
-    "createdAt": 1719083131794
+    "_id": "TmJdhN",
+    "updatedAt": 1719688679241
   }
 ]

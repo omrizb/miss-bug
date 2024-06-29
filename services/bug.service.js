@@ -88,7 +88,8 @@ function getEmptyBug() {
         title: 'New bug',
         description: '',
         severity: 1,
-        labels: []
+        labels: [],
+        creatorUserId: ''
     })
 }
 

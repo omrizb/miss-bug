@@ -1,0 +1,15 @@
+GET http://127.0.0.1:3030/api/user
+
+###
+
+GET http://127.0.0.1:3030/api/user/u101
+
+###
+
+POST http://127.0.0.1:3030/api/login
+content-type: application/json
+
+{
+    "username": "ruki",
+    "password": "ruki1"
+}

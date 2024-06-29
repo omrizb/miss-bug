@@ -1,30 +1,36 @@
 [
     {
-        "_id" : "b101",
-        "title" : "Cannot save a new car",
-        "description" : "problem when clicking Save",
-        "severity" : 3,
-        "createdAt" : 1719711737000
+      "_id": "b101",
+      "title": "Cannot save a new car",
+      "description": "problem when clicking Save",
+      "severity": 2,
+      "labels": ["critical"],
+      "createdAt": 1719711737000,
+      "updatedAt": 1718737098573
     },
     {
-        "_id" : "b102",
-        "title" : "Big issue",
-        "description" : "problem when clicking Add",
-        "severity" : 3,
-        "createdAt" : 1713711737000
+      "_id": "b102",
+      "title": "Big issue",
+      "description": "problem when clicking Add",
+      "severity": 1,
+      "labels": [],
+      "createdAt": 1713711737000
     },
     {
-        "_id" : "b103",
-        "title" : "Nothing works",
-        "description" : "I'm giving up",
-        "severity" : 3,
-        "createdAt" : 1718711737000
+      "_id": "b103",
+      "title": "Nothing works",
+      "description": "I'm giving up",
+      "severity": 4,
+      "labels": ["critical", "need-CR"],
+      "createdAt": 1718711737000,
+      "updatedAt": 1718458562236
     },
     {
-        "_id" : "b104",
-        "title" : "Crash!!!",
-        "description" : "UI is doomed",
-        "severity" : 3,
-        "createdAt" : 1715715737000
+      "_id": "b104",
+      "title": "Crash!!!",
+      "description": "UI is doomed",
+      "severity": 3,
+      "labels": ["dev-branch", "need-CR"],
+      "createdAt": 1715715737000
     }
 ]

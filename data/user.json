@@ -1,0 +1,27 @@
+[
+    {
+      "username": "admin",
+      "password": "admin",
+      "fullname": "Admin Admin",
+      "_id": "fLtg9",
+      "isAdmin": true
+    },
+    {
+      "_id": "u101",
+      "username": "ruki",
+      "password": "ruki1",
+      "fullname": "Ruki The Rock"
+    },
+    {
+      "_id": "u102",
+      "username": "muki",
+      "password": "muki1",
+      "fullname": "Muki The Mock"
+    },
+    {
+      "_id": "oLRch",
+      "fullname": "risan ben",
+      "password": "risan",
+      "username": "risan"
+    }
+  ]
