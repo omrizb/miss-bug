@@ -89,7 +89,10 @@ function getEmptyBug() {
         description: '',
         severity: 1,
         labels: [],
-        creatorUserId: ''
+        creator: {
+            _id: '',
+            fullName: ''
+        }
     })
 }
 

@@ -17,6 +17,7 @@
     "express": "^4.19.2",
     "follow-redirects": "^1.15.6",
     "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "qs": "^6.12.1"
   }
 }

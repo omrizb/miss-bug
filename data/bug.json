@@ -7,7 +7,7 @@
       "critical"
     ],
     "_id": "J1k2L3",
-    "updatedAt": 1719011627762
+    "createdAt": 1719011627762
   },
   {
     "title": "Error on password reset",
@@ -18,7 +18,7 @@
       "backend"
     ],
     "_id": "Y7z8A1",
-    "updatedAt": 1719126174470
+    "createdAt": 1719126174470
   },
   {
     "title": "Feature request: Export data",
@@ -29,7 +29,7 @@
       "UI"
     ],
     "_id": "P7q8R9",
-    "updatedAt": 1719011427762
+    "createdAt": 1719011427762
   },
   {
     "title": "Incorrect data display",
@@ -39,7 +39,7 @@
       "bug"
     ],
     "_id": "V4w5X6",
-    "updatedAt": 1719011227762
+    "createdAt": 1719011227762
   },
   {
     "title": "Login page error",
@@ -50,7 +50,7 @@
       "backend"
     ],
     "_id": "A1b2C3",
-    "updatedAt": 1719011927762
+    "createdAt": 1719011927762
   },
   {
     "title": "Missing notifications",
@@ -60,7 +60,7 @@
       "backend"
     ],
     "_id": "M4n5O6",
-    "updatedAt": 1719011527762
+    "createdAt": 1719011527762
   },
   {
     "title": "Nothing works!",
@@ -80,7 +80,7 @@
       "need-CR"
     ],
     "_id": "S1t2U3",
-    "updatedAt": 1719011327762
+    "createdAt": 1719011327762
   },
   {
     "title": "Search feature slow",
@@ -90,7 +90,7 @@
       "performance"
     ],
     "_id": "D4e5F6",
-    "updatedAt": 1719011827762
+    "createdAt": 1719011827762
   },
   {
     "title": "Test123",
@@ -100,6 +100,6 @@
       "critical"
     ],
     "_id": "TmJdhN",
-    "updatedAt": 1719688679241
+    "createdAt": 1719688679241
   }
 ]
